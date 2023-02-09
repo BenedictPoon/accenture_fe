@@ -13,7 +13,7 @@ export default function ButtonAppBar() {
         <Toolbar>
             
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            BEST APP
+            Ticket Connect
           </Typography>
           
           <Button color="inherit">Settings</Button>

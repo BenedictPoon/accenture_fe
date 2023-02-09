@@ -37,7 +37,8 @@ export default function Form({ handleAddTickets }) {
         //     //console.log(response.data);
         //     handleAddTickets(response.data);
         // });
-        const URL = "http://127.0.0.1:5000/sendTicket";
+        const URL =
+            "http://ec2-3-26-42-153.ap-southeast-2.compute.amazonaws.com:5000/sendTicket";
         const postRequestOptions = {
             method: "POST",
             headers: {

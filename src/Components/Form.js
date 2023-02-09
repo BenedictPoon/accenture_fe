@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import Button from "@mui/material/Button";
-import axios from "axios";
+// import axios from "axios";
 
 export default function Form({ handleAddTickets }) {
     const [id, setId] = useState();
@@ -11,35 +11,47 @@ export default function Form({ handleAddTickets }) {
     const [desc, setDesc] = useState();
     const [acc, setAcc] = useState();
 
-    const payload = {
-        id: id,
-        title: title,
-        desc: desc,
-        acc: acc,
-        // accT: acc
-    };
-
     const handleSubmit = () => {
+        const payload = {
+            id: id,
+            title: title,
+            description: desc,
+            acceptance_criteria: acc,
+        };
         //console.log(payload)
         // POST
-        const URL = "http://127.0.0.1:5000/sendTicket";
-        axios({
-            method: "POST",
-            url: URL,
-            responseType: "stream",
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "POST",
+        // axios({
+        //     method: "POST",
+        //     url: URL,
+        //     responseType: "stream",
+        //     headers: {
+        //         "Access-Control-Allow-Origin": "*",
+        //         "Access-Control-Allow-Methods": "POST",
 
-                "Access-Control-Allow-Headers": "Content-Type,Authorisation",
+        //         "Access-Control-Allow-Headers": "Content-Type,Authorisation",
+        //     },
+        //     body: {
+        //         payload,
+        //     },
+        // }).then((response) => {
+        //     //console.log(response.data);
+        //     handleAddTickets(response.data);
+        // });
+        const URL = "http://127.0.0.1:5000/sendTicket";
+        const postRequestOptions = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
             },
-            body: {
-                payload,
-            },
-        }).then((response) => {
-            //console.log(response.data);
-            handleAddTickets(response.data);
-        });
+            body: JSON.stringify(payload),
+        };
+        fetch(URL, postRequestOptions)
+            .then((response) => response.json())
+            // .then((response) => console.log(response.data))
+            .then((response) => handleAddTickets(response.data))
+            .catch((error) => {
+                console.error("Error:", error);
+            });
     };
 
     return (

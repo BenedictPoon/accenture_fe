@@ -67,12 +67,12 @@ export default function TicketCard({
                                 </Box>
                                 {inputDesc}
                             </Typography>
-                            <Typography variant="body2">
+                            {/* <Typography variant="body2">
                                 <Box fontWeight="fontWeightBold">
                                     Acceptance Criteria:
                                 </Box>
                                 {inputAccC}
-                            </Typography>
+                            </Typography> */}
                         </div>
                         <div
                             style={{

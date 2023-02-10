@@ -25,42 +25,38 @@ function App() {
             >
                 <div
                     style={{
-                        width: tickets.length === 0 ? "1920px" : "700px",
-                        height: "1000px",
+                        width: tickets.length === 0 ? "100vw" : "50%",
+                        height: "10vh",
                     }}
                 >
-                    <Card
+                    <div
                         style={{
-                            height: "1000px",
+                            marginTop: "25px",
+                            marginLeft: tickets.length === 0 ? "40px" : "40px",
                         }}
                     >
                         <div
                             style={{
-                                marginTop: "25px",
-                                marginLeft:
-                                    tickets.length === 0 ? "40px" : "40px",
+                                marginLeft: "5px",
                             }}
                         >
-                            <div
-                                style={{
-                                    marginLeft: "5px",
-                                }}
-                            >
-                                <h1>Search for a ticket</h1>
-                                <p style={{ fontWeight: "lighter  " }}>
-                                    Click on ticket to view more information.
-                                </p>
-                            </div>
-                            <Form handleAddTickets={handleAddTickets} />
+                            <h1>Search for a ticket</h1>
+                            <p style={{ fontWeight: "lighter  " }}>
+                                Click on ticket to view more information.
+                            </p>
                         </div>
-                    </Card>
+                        <Form handleAddTickets={handleAddTickets} />
+                    </div>
                 </div>
 
                 <div
                     style={{
                         maxHeight: "1000px",
                         overflow: "auto",
+                        marginLeft: "45px",
+                        height: "90vh",
                     }}
+                    className="ticket-scroll"
                 >
                     <div>
                         {tickets.length !== 0 && (

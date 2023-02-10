@@ -6,7 +6,9 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import Divider from "@mui/material/Divider";
 import { useState } from "react";
+import "./TicketCard.css";
 
 const style = {
     position: "absolute",
@@ -46,24 +48,40 @@ export default function TicketCard({
                     cursor: "pointer",
                 }}
                 onClick={handleOpen}
+                className="ticket-card"
             >
                 {/*  */}
                 <CardContent>
                     <div style={{ display: "flex" }}>
                         <div style={{ display: "block" }}>
-                            <Typography variant="h5" component="div">
-                                Ticket ID: {inputId}
+                            <Typography
+                                sx={{ mb: 1.5 }}
+                                color="text.primary"
+                                variant="h5"
+                            >
+                                {inputTitle}
                             </Typography>
-                            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                Title: {inputTitle}
+                            <Typography sx={{ mb: 1.5 }} variant="body2">
+                                <Box fontWeight="fontWeightBold">
+                                    Description:
+                                </Box>
+                                {inputDesc}
                             </Typography>
                             <Typography variant="body2">
-                                Description: {inputDesc}
+                                <Box fontWeight="fontWeightBold">
+                                    Acceptance Criteria:
+                                </Box>
+                                {inputAccC}
                             </Typography>
                         </div>
                         <div
                             style={{
-                                color: "green",
+                                color:
+                                    similarity < 70
+                                        ? "red"
+                                        : similarity > 85
+                                        ? "green"
+                                        : "orange",
                                 fontFamily: "fantasy",
                                 fontSize: "36px",
                                 marginTop: "30px",
@@ -84,18 +102,39 @@ export default function TicketCard({
                     aria-describedby="modal-modal-description"
                 >
                     <Box sx={style}>
+                        <Typography variant="h5" component="div">
+                            Ticket ID: {inputId}
+                        </Typography>
+                        <Typography
+                            variant="h5"
+                            component="div"
+                            className="similarity-on-pop-up-ticket"
+                        >
+                            {Math.round(similarity)}%
+                        </Typography>
                         <Typography
                             id="modal-modal-title"
                             variant="h6"
                             component="h2"
+                            sx={{ mt: 1.5, mb: 1.5 }}
                         >
-                            Title: {inputTitle}
+                            {inputTitle}
+                        </Typography>
+                        <Divider />
+
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            <Box fontWeight="fontWeightBold">Description:</Box>
+                            {inputDesc}
                         </Typography>
                         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                            Description: {inputDesc}
+                            <Box fontWeight="fontWeightBold">
+                                Acceptance Criteria:
+                            </Box>
+                            {inputAccC}
                         </Typography>
-                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                            Acceptance Criteria: {inputAccC}
+                        <Typography sx={{ mt: 2 }}>
+                            <Box fontWeight="fontWeightBold">Contact:</Box>
+                            brian.wang900@gmail.com
                         </Typography>
                     </Box>
                 </Modal>

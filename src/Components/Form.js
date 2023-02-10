@@ -3,13 +3,14 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import Button from "@mui/material/Button";
-// import axios from "axios";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Form({ handleAddTickets }) {
     const [id, setId] = useState();
     const [title, setTitle] = useState();
     const [desc, setDesc] = useState();
     const [acc, setAcc] = useState();
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = () => {
         const payload = {
@@ -18,25 +19,7 @@ export default function Form({ handleAddTickets }) {
             description: desc,
             acceptance_criteria: acc,
         };
-        //console.log(payload)
-        // POST
-        // axios({
-        //     method: "POST",
-        //     url: URL,
-        //     responseType: "stream",
-        //     headers: {
-        //         "Access-Control-Allow-Origin": "*",
-        //         "Access-Control-Allow-Methods": "POST",
 
-        //         "Access-Control-Allow-Headers": "Content-Type,Authorisation",
-        //     },
-        //     body: {
-        //         payload,
-        //     },
-        // }).then((response) => {
-        //     //console.log(response.data);
-        //     handleAddTickets(response.data);
-        // });
         const URL =
             "http://ec2-3-26-42-153.ap-southeast-2.compute.amazonaws.com:5000/sendTicket";
         const postRequestOptions = {
@@ -46,10 +29,12 @@ export default function Form({ handleAddTickets }) {
             },
             body: JSON.stringify(payload),
         };
+        setIsLoading(true);
         fetch(URL, postRequestOptions)
             .then((response) => response.json())
             // .then((response) => console.log(response.data))
             .then((response) => handleAddTickets(response.data))
+            .then(() => setIsLoading(false))
             .catch((error) => {
                 console.error("Error:", error);
             });
@@ -128,6 +113,7 @@ export default function Form({ handleAddTickets }) {
                     marginTop: "10px",
                     //  backgroundColor: "white",
                     color: "green",
+                    display: "flex",
                 }}
             >
                 <Button
@@ -137,6 +123,11 @@ export default function Form({ handleAddTickets }) {
                 >
                     Search similar tickets
                 </Button>
+                {isLoading && (
+                    <div style={{ marginTop: "5px", marginLeft: "15px" }}>
+                        <CircularProgress />
+                    </div>
+                )}
             </div>
         </>
     );
